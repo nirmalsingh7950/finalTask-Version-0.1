@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik
+  namespace: nirmal
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "80"
+spec:
+  selector:
+   app.kubernetes.io/app: traefik-ingress-ctlr
+  ports:
+  - name: https
+    port: 80
+    targetPort: https
+    protocol: TCP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource
+  namespace: nirmal
+spec:
+  rules:
+  - host: xenon.ctl
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: traefik
+          servicePort: https

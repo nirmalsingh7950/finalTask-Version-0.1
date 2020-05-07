@@ -1,0 +1,12 @@
+1: kubectl taint nodes nirmalsingh key=mosquito:NoSchedule
+2: kubectl create -f pv-volume.yaml
+3: kubectl create -f pv-claim.yaml
+4: kubectl create -f webserver.yaml
+5: kubectl create -f webserver-svc.yaml
+6: kubectl create -f php-mysql-ingress.yaml
+
+
+
+10.107.52.17  php
+
+10.101.50.13  phpmyadmin
